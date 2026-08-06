@@ -1,5 +1,9 @@
 import { useCallback, useState } from 'react'
 import { requestMicrophoneAccess } from '../services/microphoneAccess'
+import {
+  listAudioInputDevices,
+  type AudioInputDevice,
+} from '../services/audioDevices'
 
 type MicrophoneAccessState =
   | { status: 'idle' }
@@ -9,17 +13,23 @@ type MicrophoneAccessState =
 
 export function useMicrophoneAccess() {
   const [state, setState] = useState<MicrophoneAccessState>({ status: 'idle' })
+  const [devices, setDevices] = useState<AudioInputDevice[]>([])
+  const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
 
-  const requestAccess = useCallback(async () => {
+  const requestAccess = useCallback(async (deviceId?: string) => {
     setState({ status: 'pending' })
 
     try {
-      const stream = await requestMicrophoneAccess()
+      const stream = await requestMicrophoneAccess(deviceId)
       setState({ status: 'granted', stream })
+
+      const availableDevices = await listAudioInputDevices()
+      setDevices(availableDevices)
+      setSelectedDeviceId(deviceId ?? availableDevices[0]?.deviceId ?? null)
     } catch (error) {
       setState({ status: 'denied', error: error as Error })
     }
   }, [])
 
-  return { state, requestAccess }
+  return { state, devices, selectedDeviceId, requestAccess }
 }
