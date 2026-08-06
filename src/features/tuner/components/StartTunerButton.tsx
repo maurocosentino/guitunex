@@ -1,12 +1,17 @@
 import { useState } from 'react'
 import { resumeAudioContext } from '../../../shared/lib/audioContext'
 import { useMicrophoneAccess } from '../hooks/useMicrophoneAccess'
+import { useAudioLevel } from '../../../shared/hooks/useAudioLevel'
 import AudioInputSelector from './AudioInputSelector'
+import AudioLevelMeter from '../../../shared/components/AudioLevelMeter'
 
 function StartTunerButton() {
   const [isAudioActive, setIsAudioActive] = useState(false)
   const { state, devices, selectedDeviceId, requestAccess } =
     useMicrophoneAccess()
+
+  const stream = state.status === 'granted' ? state.stream : null
+  const audioLevel = useAudioLevel(stream)
 
   async function handleClick() {
     await resumeAudioContext()
@@ -31,6 +36,8 @@ function StartTunerButton() {
         selectedDeviceId={selectedDeviceId}
         onSelect={(deviceId) => requestAccess(deviceId)}
       />
+
+      <AudioLevelMeter level={audioLevel} />
     </div>
   )
 }
