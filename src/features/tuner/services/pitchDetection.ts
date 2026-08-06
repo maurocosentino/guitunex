@@ -2,7 +2,7 @@ export function detectPitch(
   buffer: Float32Array,
   sampleRate: number,
 ): number | null {
-  const minFrequency = 60
+  const minFrequency = 25
   const maxFrequency = 1000
 
   const minLag = Math.floor(sampleRate / maxFrequency)
