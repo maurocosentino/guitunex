@@ -16,20 +16,27 @@ export function useMicrophoneAccess() {
   const [devices, setDevices] = useState<AudioInputDevice[]>([])
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
 
-  const requestAccess = useCallback(async (deviceId?: string) => {
-    setState({ status: 'pending' })
+  const requestAccess = useCallback(
+    async (deviceId?: string) => {
+      if (state.status === 'granted') {
+        state.stream.getTracks().forEach((track) => track.stop())
+      }
 
-    try {
-      const stream = await requestMicrophoneAccess(deviceId)
-      setState({ status: 'granted', stream })
+      setState({ status: 'pending' })
 
-      const availableDevices = await listAudioInputDevices()
-      setDevices(availableDevices)
-      setSelectedDeviceId(deviceId ?? availableDevices[0]?.deviceId ?? null)
-    } catch (error) {
-      setState({ status: 'denied', error: error as Error })
-    }
-  }, [])
+      try {
+        const stream = await requestMicrophoneAccess(deviceId)
+        setState({ status: 'granted', stream })
+
+        const availableDevices = await listAudioInputDevices()
+        setDevices(availableDevices)
+        setSelectedDeviceId(deviceId ?? availableDevices[0]?.deviceId ?? null)
+      } catch (error) {
+        setState({ status: 'denied', error: error as Error })
+      }
+    },
+    [state],
+  )
 
   return { state, devices, selectedDeviceId, requestAccess }
 }

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { resumeAudioContext } from '../../../shared/lib/audioContext'
 import { useMicrophoneAccess } from '../hooks/useMicrophoneAccess'
+import AudioInputSelector from './AudioInputSelector'
 
 function StartTunerButton() {
   const [isAudioActive, setIsAudioActive] = useState(false)
-  const { state, requestAccess } = useMicrophoneAccess()
+  const { state, devices, selectedDeviceId, requestAccess } =
+    useMicrophoneAccess()
 
   async function handleClick() {
     await resumeAudioContext()
@@ -14,11 +16,7 @@ function StartTunerButton() {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={handleClick}
-        disabled={isAudioActive}
-      >
+      <button type="button" onClick={handleClick} disabled={isAudioActive}>
         {isAudioActive ? 'Audio activo' : 'Empezar a afinar'}
       </button>
 
@@ -27,6 +25,12 @@ function StartTunerButton() {
       {state.status === 'denied' && (
         <p>No pudimos acceder al micrófono: {state.error.message}</p>
       )}
+
+      <AudioInputSelector
+        devices={devices}
+        selectedDeviceId={selectedDeviceId}
+        onSelect={(deviceId) => requestAccess(deviceId)}
+      />
     </div>
   )
 }
