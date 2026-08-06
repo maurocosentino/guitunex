@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { resumeAudioContext } from '../../../shared/lib/audioContext'
 import { useMicrophoneAccess } from '../hooks/useMicrophoneAccess'
 import { useAudioLevel } from '../../../shared/hooks/useAudioLevel'
+import { usePitchDetection } from '../hooks/usePitchDetection'
 import AudioInputSelector from './AudioInputSelector'
 import AudioLevelMeter from '../../../shared/components/AudioLevelMeter'
 
@@ -12,6 +13,7 @@ function StartTunerButton() {
 
   const stream = state.status === 'granted' ? state.stream : null
   const audioLevel = useAudioLevel(stream)
+  const pitch = usePitchDetection(stream)
 
   async function handleClick() {
     await resumeAudioContext()
@@ -38,6 +40,8 @@ function StartTunerButton() {
       />
 
       <AudioLevelMeter level={audioLevel} />
+
+      {pitch !== null && <p>Frecuencia detectada: {pitch.toFixed(1)} Hz</p>}
     </div>
   )
 }
