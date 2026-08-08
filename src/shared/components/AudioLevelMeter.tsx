@@ -1,3 +1,5 @@
+import styles from './AudioLevelMeter.module.css'
+
 type AudioLevelMeterProps = {
   level: number
 }
@@ -13,22 +15,9 @@ function AudioLevelMeter({ level }: AudioLevelMeterProps) {
       aria-valuenow={Math.round(widthPercentage)}
       aria-valuemin={0}
       aria-valuemax={100}
-      style={{
-        width: '100%',
-        height: '8px',
-        backgroundColor: '#ddd',
-        borderRadius: '4px',
-        overflow: 'hidden',
-      }}
+      className={styles.track}
     >
-      <div
-        style={{
-          width: `${widthPercentage}%`,
-          height: '100%',
-          backgroundColor: '#4caf50',
-          transition: 'width 0.05s linear',
-        }}
-      />
+      <div className={styles.fill} style={{ width: `${widthPercentage}%` }} />
     </div>
   )
 }

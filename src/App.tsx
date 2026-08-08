@@ -1,10 +1,9 @@
-import StartTunerButton from './features/tuner/components/StartTunerButton'
+import TunerPage from './features/tuner/components/TunerPage'
 
 function App() {
   return (
     <main>
-      <h1>TuneLab</h1>
-      <StartTunerButton />
+      <TunerPage />
     </main>
   )
 }

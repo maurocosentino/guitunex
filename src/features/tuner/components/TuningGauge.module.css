@@ -1,0 +1,11 @@
+.wrapper {
+  background: var(--color-panel-alt);
+  border-radius: var(--radius);
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.needle {
+  transition: transform 0.1s ease-out;
+}

@@ -1,0 +1,41 @@
+.wrapper {
+  margin-top: 8px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  text-align: center;
+  margin: 0 0 8px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+.string {
+  background: var(--color-panel-alt);
+  border: none;
+  border-radius: 8px;
+  padding: 10px 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.stringLabel {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.stringFrequency {
+  display: block;
+  font-size: 9px;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}

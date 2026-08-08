@@ -1,4 +1,5 @@
 import type { AudioInputDevice } from '../services/audioDevices'
+import styles from './AudioInputSelector.module.css'
 
 type AudioInputSelectorProps = {
   devices: AudioInputDevice[]
@@ -16,9 +17,10 @@ function AudioInputSelector({
   }
 
   return (
-    <label>
+    <label className={styles.label}>
       Entrada de audio
       <select
+        className={styles.select}
         value={selectedDeviceId ?? ''}
         onChange={(event) => onSelect(event.target.value)}
       >

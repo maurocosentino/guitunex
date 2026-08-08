@@ -1,0 +1,29 @@
+.display {
+  background: var(--color-panel-alt);
+  border-radius: var(--radius);
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.note {
+  font-size: 40px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.cents {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.placeholder {
+  width: 32px;
+  height: 3px;
+  background: var(--color-text);
+  border-radius: 2px;
+}
