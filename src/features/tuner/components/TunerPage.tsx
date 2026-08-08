@@ -7,10 +7,11 @@ import { usePitchDetection } from '../hooks/usePitchDetection'
 import { useSmoothedValue } from '../../../shared/hooks/useSmoothedValue'
 import { frequencyToNote } from '../services/frequencyToNote'
 import {
-  getStringsForInstrument,
+  getTuningsForInstrument,
+  getDefaultTuning,
   type Instrument,
 } from '../services/tunings'
-import Header from './Header'
+import InstrumentSelector from './InstrumentSelector'
 import NoteDisplay from './NoteDisplay'
 import TuningGauge from './TuningGauge'
 import StringSelector from './StringSelector'
@@ -22,6 +23,9 @@ import styles from './TunerPage.module.css'
 
 function TunerPage() {
   const [instrument, setInstrument] = useState<Instrument>('guitar')
+  const [selectedTuningId, setSelectedTuningId] = useState(
+    getDefaultTuning('guitar').id,
+  )
   const { state, devices, selectedDeviceId, requestAccess, stopAccess } =
     useMicrophoneAccess()
 
@@ -31,61 +35,72 @@ function TunerPage() {
   const pitch = useSmoothedValue(rawPitch)
   const noteInfo = pitch !== null ? frequencyToNote(pitch) : null
 
+  const tunings = getTuningsForInstrument(instrument)
+  const selectedTuning =
+    tunings.find((tuning) => tuning.id === selectedTuningId) ?? tunings[0]
+
+  function handleInstrumentChange(newInstrument: Instrument) {
+    setInstrument(newInstrument)
+    setSelectedTuningId(getDefaultTuning(newInstrument).id)
+  }
+
   async function handleStart() {
     await resumeAudioContext()
     await requestAccess()
   }
 
   return (
-    <div className={styles.page}>
-      <div className={styles.console}>
-        <Header instrument={instrument} onInstrumentChange={setInstrument} />
+    <>
+      {isAudioSupported() ? (
+        <>
+          <InstrumentSelector
+            instrument={instrument}
+            tunings={tunings}
+            selectedTuningId={selectedTuning.id}
+            onInstrumentChange={handleInstrumentChange}
+            onTuningChange={setSelectedTuningId}
+          />
 
-        {isAudioSupported() ? (
-          <>
-            <NoteDisplay
-              note={noteInfo?.note ?? null}
-              octave={noteInfo?.octave ?? null}
-              cents={noteInfo?.cents ?? null}
-            />
+          <NoteDisplay
+            note={noteInfo?.note ?? null}
+            octave={noteInfo?.octave ?? null}
+            cents={noteInfo?.cents ?? null}
+          />
 
-            <TuningGauge
-              cents={noteInfo?.cents ?? 0}
-              hasSignal={noteInfo !== null}
-            />
+          <TuningGauge
+            cents={noteInfo?.cents ?? 0}
+            hasSignal={noteInfo !== null}
+          />
 
-            <StringSelector strings={getStringsForInstrument(instrument)} />
+          <StringSelector strings={selectedTuning.strings} />
 
-            {state.status === 'pending' && (
-              <p className={styles.status}>
-                Esperando permiso del micrófono...
-              </p>
-            )}
-            {state.status === 'denied' && (
-              <p className={styles.status}>
-                No pudimos acceder al micrófono: {state.error.message}
-              </p>
-            )}
+          {state.status === 'pending' && (
+            <p className={styles.status}>Esperando permiso del micrófono...</p>
+          )}
+          {state.status === 'denied' && (
+            <p className={styles.status}>
+              No pudimos acceder al micrófono: {state.error.message}
+            </p>
+          )}
 
-            <AudioInputSelector
-              devices={devices}
-              selectedDeviceId={selectedDeviceId}
-              onSelect={(deviceId) => requestAccess(deviceId)}
-            />
+          <AudioInputSelector
+            devices={devices}
+            selectedDeviceId={selectedDeviceId}
+            onSelect={(deviceId) => requestAccess(deviceId)}
+          />
 
-            <AudioLevelMeter level={audioLevel} />
+          <AudioLevelMeter level={audioLevel} />
 
-            <StartListeningButton
-              isListening={state.status === 'granted'}
-              onStart={handleStart}
-              onStop={stopAccess}
-            />
-          </>
-        ) : (
-          <UnsupportedBrowserMessage />
-        )}
-      </div>
-    </div>
+          <StartListeningButton
+            isListening={state.status === 'granted'}
+            onStart={handleStart}
+            onStop={stopAccess}
+          />
+        </>
+      ) : (
+        <UnsupportedBrowserMessage />
+      )}
+    </>
   )
 }
 

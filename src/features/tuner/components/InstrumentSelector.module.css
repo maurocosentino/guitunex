@@ -1,0 +1,15 @@
+.wrapper {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.select {
+  flex: 1;
+  background: var(--color-panel-alt);
+  color: var(--color-text);
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  padding: 10px;
+}

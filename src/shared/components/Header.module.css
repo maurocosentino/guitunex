@@ -30,12 +30,6 @@
   color: var(--color-text-muted);
 }
 
-.controls {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
 .toggle {
   display: flex;
   background: var(--color-panel-alt);
@@ -57,17 +51,6 @@
 .toggleOptionActive {
   background: var(--color-accent);
   color: white;
-}
-
-.iconButton {
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: var(--color-panel-alt);
-  color: var(--color-text-muted);
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
 }
 
 @media (max-width: 380px) {
