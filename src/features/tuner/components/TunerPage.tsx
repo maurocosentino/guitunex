@@ -4,6 +4,7 @@ import { isAudioSupported } from '../../../shared/lib/browserSupport'
 import { useMicrophoneAccess } from '../hooks/useMicrophoneAccess'
 import { useAudioLevel } from '../../../shared/hooks/useAudioLevel'
 import { usePitchDetection } from '../hooks/usePitchDetection'
+import { useSmoothedValue } from '../../../shared/hooks/useSmoothedValue'
 import { frequencyToNote } from '../services/frequencyToNote'
 import {
   getStringsForInstrument,
@@ -27,7 +28,8 @@ function TunerPage() {
 
   const stream = state.status === 'granted' ? state.stream : null
   const audioLevel = useAudioLevel(stream)
-  const pitch = usePitchDetection(stream)
+  const rawPitch = usePitchDetection(stream)
+  const pitch = useSmoothedValue(rawPitch)
   const noteInfo = pitch !== null ? frequencyToNote(pitch) : null
 
   async function handleClick() {
