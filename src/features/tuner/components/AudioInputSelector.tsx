@@ -12,9 +12,7 @@ function AudioInputSelector({
   selectedDeviceId,
   onSelect,
 }: AudioInputSelectorProps) {
-  if (devices.length === 0) {
-    return null
-  }
+  const hasDevices = devices.length > 0
 
   return (
     <label className={styles.label}>
@@ -23,12 +21,17 @@ function AudioInputSelector({
         className={styles.select}
         value={selectedDeviceId ?? ''}
         onChange={(event) => onSelect(event.target.value)}
+        disabled={!hasDevices}
       >
-        {devices.map((device) => (
-          <option key={device.deviceId} value={device.deviceId}>
-            {device.label || 'Micrófono sin nombre'}
-          </option>
-        ))}
+        {hasDevices ? (
+          devices.map((device) => (
+            <option key={device.deviceId} value={device.deviceId}>
+              {device.label || 'Micrófono sin nombre'}
+            </option>
+          ))
+        ) : (
+          <option value="">Sin dispositivos disponibles</option>
+        )}
       </select>
     </label>
   )
