@@ -6,6 +6,12 @@
   justify-content: center;
 }
 
+.svg {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+}
+
 .needle {
   transition: transform 0.1s ease-out;
 }

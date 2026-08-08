@@ -35,7 +35,7 @@ function TuningGauge({ cents, hasSignal }: TuningGaugeProps) {
 
   return (
     <div className={styles.wrapper}>
-      <svg width="300" height="170" viewBox="0 0 300 170">
+      <svg className={styles.svg} viewBox="0 0 300 170">
         <path
           d={describeArc(-90, -60)}
           stroke="var(--color-danger)"

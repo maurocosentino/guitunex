@@ -39,3 +39,10 @@
   color: var(--color-text-muted);
   margin-top: 2px;
 }
+
+@media (max-width: 380px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 8px;
+  }
+}

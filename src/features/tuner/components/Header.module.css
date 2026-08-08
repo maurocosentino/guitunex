@@ -69,3 +69,14 @@
   cursor: pointer;
   font-size: 14px;
 }
+
+@media (max-width: 380px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  .toggleOption {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+}
