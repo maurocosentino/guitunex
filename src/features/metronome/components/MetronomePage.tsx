@@ -1,22 +1,43 @@
 import { useMetronome } from '../hooks/useMetronome'
+import BpmControl from './BpmControl'
+import TimeSignatureSelector from './TimeSignatureSelector'
+import SubdivisionSelector from './SubdivisionSelector'
+import BeatIndicator from './BeatIndicator'
 import styles from './MetronomePage.module.css'
 
 function MetronomePage() {
-  const { bpm, setBpm, isPlaying, play, pause } = useMetronome()
+  const {
+    bpm,
+    setBpm,
+    beatsPerMeasure,
+    setBeatsPerMeasure,
+    subdivision,
+    setSubdivision,
+    isPlaying,
+    currentTick,
+    play,
+    pause,
+  } = useMetronome()
 
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.bpm}>{bpm}</p>
-      <p className={styles.label}>BPM</p>
+    <>
+      <div className={styles.display}>
+        <p className={styles.bpm}>{bpm}</p>
+        <p className={styles.label}>BPM</p>
+        <BeatIndicator
+          beatsPerMeasure={beatsPerMeasure}
+          currentBeat={currentTick?.beatIndex ?? null}
+        />
+      </div>
 
-      <input
-        className={styles.slider}
-        type="range"
-        min={40}
-        max={240}
-        value={bpm}
-        onChange={(event) => setBpm(Number(event.target.value))}
+      <BpmControl bpm={bpm} onChange={setBpm} />
+
+      <TimeSignatureSelector
+        beatsPerMeasure={beatsPerMeasure}
+        onChange={setBeatsPerMeasure}
       />
+
+      <SubdivisionSelector subdivision={subdivision} onChange={setSubdivision} />
 
       {isPlaying ? (
         <button
@@ -35,7 +56,7 @@ function MetronomePage() {
           PLAY
         </button>
       )}
-    </div>
+    </>
   )
 }
 

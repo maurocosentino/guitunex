@@ -1,9 +1,19 @@
-export function playClickSound(audioContext: AudioContext, time: number) {
+type PlayClickSoundOptions = {
+  isAccent?: boolean
+}
+
+export function playClickSound(
+  audioContext: AudioContext,
+  time: number,
+  options: PlayClickSoundOptions = {},
+) {
+  const { isAccent = false } = options
+
   const oscillator = audioContext.createOscillator()
   const gainNode = audioContext.createGain()
 
-  oscillator.frequency.value = 1000
-  gainNode.gain.setValueAtTime(0.3, time)
+  oscillator.frequency.value = isAccent ? 1500 : 1000
+  gainNode.gain.setValueAtTime(isAccent ? 0.4 : 0.25, time)
   gainNode.gain.exponentialRampToValueAtTime(0.001, time + 0.05)
 
   oscillator.connect(gainNode)

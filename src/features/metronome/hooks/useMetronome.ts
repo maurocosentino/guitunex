@@ -1,14 +1,21 @@
 import { useEffect, useRef, useState } from 'react'
-import { getAudioContext } from '../../../shared/lib/audioContext'
-import { resumeAudioContext } from '../../../shared/lib/audioContext'
-import { createMetronomeScheduler } from '../services/metronomeScheduler'
+import { getAudioContext, resumeAudioContext } from '../../../shared/lib/audioContext'
+import {
+  createMetronomeScheduler,
+  type MetronomeScheduler,
+  type TickInfo,
+} from '../services/metronomeScheduler'
 import { playClickSound } from '../services/playClickSound'
-import type { MetronomeScheduler } from '../services/metronomeScheduler'
 
 export function useMetronome(initialBpm = 120) {
   const [bpm, setBpm] = useState(initialBpm)
+  const [beatsPerMeasure, setBeatsPerMeasure] = useState(4)
+  const [subdivision, setSubdivision] = useState(1)
   const [isPlaying, setIsPlaying] = useState(false)
+  const [currentTick, setCurrentTick] = useState<TickInfo | null>(null)
+
   const schedulerRef = useRef<MetronomeScheduler | null>(null)
+  const timeoutIdsRef = useRef<ReturnType<typeof setTimeout>[]>([])
 
   useEffect(() => {
     if (!isPlaying) {
@@ -16,9 +23,23 @@ export function useMetronome(initialBpm = 120) {
     }
 
     const audioContext = getAudioContext()
-    const scheduler = createMetronomeScheduler(audioContext, bpm, (time) => {
-      playClickSound(audioContext, time)
-    })
+
+    const scheduler = createMetronomeScheduler(
+      audioContext,
+      bpm,
+      beatsPerMeasure,
+      subdivision,
+      (time, tickInfo) => {
+        playClickSound(audioContext, time, { isAccent: tickInfo.isAccent })
+
+        const delayMs = Math.max(0, (time - audioContext.currentTime) * 1000)
+        const timeoutId = setTimeout(() => {
+          setCurrentTick(tickInfo)
+        }, delayMs)
+
+        timeoutIdsRef.current.push(timeoutId)
+      },
+    )
 
     schedulerRef.current = scheduler
     scheduler.start()
@@ -26,8 +47,11 @@ export function useMetronome(initialBpm = 120) {
     return () => {
       scheduler.stop()
       schedulerRef.current = null
+      timeoutIdsRef.current.forEach((id) => clearTimeout(id))
+      timeoutIdsRef.current = []
+      setCurrentTick(null)
     }
-  }, [isPlaying, bpm])
+  }, [isPlaying, bpm, beatsPerMeasure, subdivision])
 
   async function play() {
     await resumeAudioContext()
@@ -38,5 +62,16 @@ export function useMetronome(initialBpm = 120) {
     setIsPlaying(false)
   }
 
-  return { bpm, setBpm, isPlaying, play, pause }
+  return {
+    bpm,
+    setBpm,
+    beatsPerMeasure,
+    setBeatsPerMeasure,
+    subdivision,
+    setSubdivision,
+    isPlaying,
+    currentTick,
+    play,
+    pause,
+  }
 }

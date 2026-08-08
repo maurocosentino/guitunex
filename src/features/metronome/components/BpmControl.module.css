@@ -1,0 +1,46 @@
+.wrapper {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--color-text-muted);
+  margin: 0 0 8px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.stepButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.value {
+  flex: 1;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  background: var(--color-panel-alt);
+}
+
+.slider {
+  width: 100%;
+}
