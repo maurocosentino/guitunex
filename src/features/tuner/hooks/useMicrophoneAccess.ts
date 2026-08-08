@@ -40,6 +40,15 @@ export function useMicrophoneAccess() {
     [state],
   )
 
+  const stopAccess = useCallback(() => {
+    if (state.status === 'granted') {
+      state.stream.getTracks().forEach((track) => track.stop())
+    }
+
+    currentStreamRef.current = null
+    setState({ status: 'idle' })
+  }, [state])
+
   useEffect(() => {
     if (state.status !== 'granted') {
       return
@@ -74,5 +83,5 @@ export function useMicrophoneAccess() {
     }
   }, [])
 
-  return { state, devices, selectedDeviceId, requestAccess }
+  return { state, devices, selectedDeviceId, requestAccess, stopAccess }
 }

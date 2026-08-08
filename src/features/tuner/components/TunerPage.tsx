@@ -21,9 +21,8 @@ import UnsupportedBrowserMessage from './UnsupportedBrowserMessage'
 import styles from './TunerPage.module.css'
 
 function TunerPage() {
-  const [isAudioActive, setIsAudioActive] = useState(false)
   const [instrument, setInstrument] = useState<Instrument>('guitar')
-  const { state, devices, selectedDeviceId, requestAccess } =
+  const { state, devices, selectedDeviceId, requestAccess, stopAccess } =
     useMicrophoneAccess()
 
   const stream = state.status === 'granted' ? state.stream : null
@@ -32,9 +31,8 @@ function TunerPage() {
   const pitch = useSmoothedValue(rawPitch)
   const noteInfo = pitch !== null ? frequencyToNote(pitch) : null
 
-  async function handleClick() {
+  async function handleStart() {
     await resumeAudioContext()
-    setIsAudioActive(true)
     await requestAccess()
   }
 
@@ -78,8 +76,9 @@ function TunerPage() {
             <AudioLevelMeter level={audioLevel} />
 
             <StartListeningButton
-              onClick={handleClick}
-              disabled={isAudioActive}
+              isListening={state.status === 'granted'}
+              onStart={handleStart}
+              onStop={stopAccess}
             />
           </>
         ) : (

@@ -1,22 +1,35 @@
 import styles from './StartListeningButton.module.css'
 
 type StartListeningButtonProps = {
-  onClick: () => void
-  disabled: boolean
+  isListening: boolean
+  onStart: () => void
+  onStop: () => void
 }
 
 function StartListeningButton({
-  onClick,
-  disabled,
+  isListening,
+  onStart,
+  onStop,
 }: StartListeningButtonProps) {
+  if (isListening) {
+    return (
+      <button
+        type="button"
+        className={`${styles.button} ${styles.stop}`}
+        onClick={onStop}
+      >
+        STOP
+      </button>
+    )
+  }
+
   return (
     <button
       type="button"
-      className={styles.button}
-      onClick={onClick}
-      disabled={disabled}
+      className={`${styles.button} ${styles.start}`}
+      onClick={onStart}
     >
-      {disabled ? 'LISTENING...' : 'START LISTENING'}
+      START LISTENING
     </button>
   )
 }

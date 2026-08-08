@@ -1,8 +1,5 @@
 .button {
   width: 100%;
-  background: transparent;
-  border: 2px solid var(--color-accent);
-  color: var(--color-accent);
   border-radius: var(--radius);
   padding: 16px;
   font-size: 13px;
@@ -10,10 +7,15 @@
   letter-spacing: 1px;
   cursor: pointer;
   margin-top: 16px;
+  background: transparent;
 }
 
-.button:disabled {
-  border-color: var(--color-border);
-  color: var(--color-text-muted);
-  cursor: default;
+.start {
+  border: 2px solid var(--color-accent);
+  color: var(--color-accent);
+}
+
+.stop {
+  border: 2px solid var(--color-danger);
+  color: var(--color-danger);
 }
