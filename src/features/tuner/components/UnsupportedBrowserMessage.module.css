@@ -1,0 +1,18 @@
+.wrapper {
+  background: var(--color-panel-alt);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0 0 8px;
+}
+
+.text {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}

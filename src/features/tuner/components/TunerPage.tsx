@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { resumeAudioContext } from '../../../shared/lib/audioContext'
+import { isAudioSupported } from '../../../shared/lib/browserSupport'
 import { useMicrophoneAccess } from '../hooks/useMicrophoneAccess'
 import { useAudioLevel } from '../../../shared/hooks/useAudioLevel'
 import { usePitchDetection } from '../hooks/usePitchDetection'
@@ -15,6 +16,7 @@ import StringSelector from './StringSelector'
 import StartListeningButton from './StartListeningButton'
 import AudioInputSelector from './AudioInputSelector'
 import AudioLevelMeter from '../../../shared/components/AudioLevelMeter'
+import UnsupportedBrowserMessage from './UnsupportedBrowserMessage'
 import styles from './TunerPage.module.css'
 
 function TunerPage() {
@@ -39,37 +41,48 @@ function TunerPage() {
       <div className={styles.console}>
         <Header instrument={instrument} onInstrumentChange={setInstrument} />
 
-        <NoteDisplay
-          note={noteInfo?.note ?? null}
-          octave={noteInfo?.octave ?? null}
-          cents={noteInfo?.cents ?? null}
-        />
+        {isAudioSupported() ? (
+          <>
+            <NoteDisplay
+              note={noteInfo?.note ?? null}
+              octave={noteInfo?.octave ?? null}
+              cents={noteInfo?.cents ?? null}
+            />
 
-        <TuningGauge
-          cents={noteInfo?.cents ?? 0}
-          hasSignal={noteInfo !== null}
-        />
+            <TuningGauge
+              cents={noteInfo?.cents ?? 0}
+              hasSignal={noteInfo !== null}
+            />
 
-        <StringSelector strings={getStringsForInstrument(instrument)} />
+            <StringSelector strings={getStringsForInstrument(instrument)} />
 
-        {state.status === 'pending' && (
-          <p className={styles.status}>Esperando permiso del micrófono...</p>
+            {state.status === 'pending' && (
+              <p className={styles.status}>
+                Esperando permiso del micrófono...
+              </p>
+            )}
+            {state.status === 'denied' && (
+              <p className={styles.status}>
+                No pudimos acceder al micrófono: {state.error.message}
+              </p>
+            )}
+
+            <AudioInputSelector
+              devices={devices}
+              selectedDeviceId={selectedDeviceId}
+              onSelect={(deviceId) => requestAccess(deviceId)}
+            />
+
+            <AudioLevelMeter level={audioLevel} />
+
+            <StartListeningButton
+              onClick={handleClick}
+              disabled={isAudioActive}
+            />
+          </>
+        ) : (
+          <UnsupportedBrowserMessage />
         )}
-        {state.status === 'denied' && (
-          <p className={styles.status}>
-            No pudimos acceder al micrófono: {state.error.message}
-          </p>
-        )}
-
-        <AudioInputSelector
-          devices={devices}
-          selectedDeviceId={selectedDeviceId}
-          onSelect={(deviceId) => requestAccess(deviceId)}
-        />
-
-        <AudioLevelMeter level={audioLevel} />
-
-        <StartListeningButton onClick={handleClick} disabled={isAudioActive} />
       </div>
     </div>
   )

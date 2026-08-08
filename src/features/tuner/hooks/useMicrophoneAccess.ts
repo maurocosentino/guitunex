@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { requestMicrophoneAccess } from '../services/microphoneAccess'
 import {
   listAudioInputDevices,
@@ -15,6 +15,7 @@ export function useMicrophoneAccess() {
   const [state, setState] = useState<MicrophoneAccessState>({ status: 'idle' })
   const [devices, setDevices] = useState<AudioInputDevice[]>([])
   const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null)
+  const currentStreamRef = useRef<MediaStream | null>(null)
 
   const requestAccess = useCallback(
     async (deviceId?: string) => {
@@ -26,6 +27,7 @@ export function useMicrophoneAccess() {
 
       try {
         const stream = await requestMicrophoneAccess(deviceId)
+        currentStreamRef.current = stream
         setState({ status: 'granted', stream })
 
         const availableDevices = await listAudioInputDevices()
@@ -37,6 +39,40 @@ export function useMicrophoneAccess() {
     },
     [state],
   )
+
+  useEffect(() => {
+    if (state.status !== 'granted') {
+      return
+    }
+
+    const handleTrackEnded = async () => {
+      setState({
+        status: 'denied',
+        error: new Error('El dispositivo de audio se desconectó'),
+      })
+
+      const availableDevices = await listAudioInputDevices()
+      setDevices(availableDevices)
+      setSelectedDeviceId(null)
+    }
+
+    const tracks = state.stream.getTracks()
+    tracks.forEach((track) => track.addEventListener('ended', handleTrackEnded))
+
+    return () => {
+      tracks.forEach((track) =>
+        track.removeEventListener('ended', handleTrackEnded),
+      )
+    }
+  }, [state])
+
+  useEffect(() => {
+    return () => {
+      if (currentStreamRef.current !== null) {
+        currentStreamRef.current.getTracks().forEach((track) => track.stop())
+      }
+    }
+  }, [])
 
   return { state, devices, selectedDeviceId, requestAccess }
 }
