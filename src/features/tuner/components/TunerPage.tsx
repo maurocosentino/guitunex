@@ -72,7 +72,11 @@ function TunerPage() {
             hasSignal={noteInfo !== null}
           />
 
-          <StringSelector strings={selectedTuning.strings} />
+          <StringSelector
+            instrument={instrument}
+            tuningId={selectedTuning.id}
+            strings={selectedTuning.strings}
+          />
 
           {state.status === 'pending' && (
             <p className={styles.status}>Esperando permiso del micrófono...</p>
