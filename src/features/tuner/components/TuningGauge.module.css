@@ -1,17 +1,51 @@
 .card {
   background: var(--color-panel-alt);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 20px 16px;
+}
+
+.labelsRow {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
 }
 
-.svg {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
+.tickStrip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
 }
 
-.needle {
-  transition: transform 0.1s ease-out;
+.tick {
+  width: 2px;
+  height: 24px;
+  background: var(--color-border);
+  border-radius: 1px;
+  transition: all 0.1s ease-out;
+}
+
+.tickCenter {
+  height: 36px;
+  background: var(--color-text);
+}
+
+.tickActive {
+  height: 44px;
+  width: 3px;
+}
+
+.tickActiveInTune {
+  background: var(--color-success);
+}
+
+.tickActiveClose {
+  background: var(--color-warning);
+}
+
+.tickActiveOff {
+  background: var(--color-danger);
 }

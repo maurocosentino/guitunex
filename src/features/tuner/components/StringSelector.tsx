@@ -15,7 +15,8 @@ function StringSelector({
   tuningId,
   tuningStrings,
 }: StringSelectorProps) {
-  const { playUrl, isRepeatEnabled, toggleRepeat } = useStringReferencePlayer()
+  const { playUrl, playingUrl, isRepeatEnabled, toggleRepeat } =
+    useStringReferencePlayer()
 
   return (
     <div className={styles.card}>
@@ -39,20 +40,24 @@ function StringSelector({
             tuningId,
             string.label,
           )
+          const isActive = audioUrl !== null && audioUrl === playingUrl
 
           return (
-            <button
-              key={string.label}
-              type="button"
-              className={styles.stringButton}
-              disabled={audioUrl === null}
-              onClick={() => audioUrl !== null && playUrl(audioUrl)}
-            >
-              <span className={styles.stringLabel}>{string.label}</span>
+            <div key={string.label} className={styles.stringColumn}>
+              <button
+                type="button"
+                className={`${styles.stringButton} ${
+                  isActive ? styles.stringButtonActive : ''
+                }`}
+                disabled={audioUrl === null}
+                onClick={() => audioUrl !== null && playUrl(audioUrl)}
+              >
+                <span className={styles.stringLabel}>{string.label}</span>
+              </button>
               <span className={styles.stringFrequency}>
                 {string.frequency.toFixed(2)} Hz
               </span>
-            </button>
+            </div>
           )
         })}
       </div>

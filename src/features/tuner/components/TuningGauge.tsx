@@ -5,80 +5,56 @@ type TuningGaugeProps = {
   hasSignal: boolean
 }
 
-const CENTER_X = 150
-const CENTER_Y = 150
-const RADIUS = 120
-const NEEDLE_LENGTH = 110
+const TICK_COUNT = 31
+const CENTER_INDEX = Math.floor(TICK_COUNT / 2)
 
-function polarToCartesian(angleInDegrees: number, radius: number) {
-  const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180
-
-  return {
-    x: CENTER_X + radius * Math.cos(angleInRadians),
-    y: CENTER_Y + radius * Math.sin(angleInRadians),
-  }
+function getActiveTickIndex(cents: number): number {
+  const clampedCents = Math.max(-50, Math.min(50, cents))
+  const ratio = (clampedCents + 50) / 100
+  return Math.round(ratio * (TICK_COUNT - 1))
 }
 
-function describeArc(startAngle: number, endAngle: number) {
-  const start = polarToCartesian(endAngle, RADIUS)
-  const end = polarToCartesian(startAngle, RADIUS)
-  const largeArcFlag = endAngle - startAngle <= 180 ? '0' : '1'
+function getAccuracyClass(cents: number): string {
+  const absoluteCents = Math.abs(cents)
 
-  return `M ${start.x} ${start.y} A ${RADIUS} ${RADIUS} 0 ${largeArcFlag} 0 ${end.x} ${end.y}`
+  if (absoluteCents <= 5) {
+    return styles.tickActiveInTune
+  }
+
+  if (absoluteCents <= 20) {
+    return styles.tickActiveClose
+  }
+
+  return styles.tickActiveOff
 }
 
 function TuningGauge({ cents, hasSignal }: TuningGaugeProps) {
-  const clampedCents = Math.max(-50, Math.min(50, cents))
-  const needleAngle = hasSignal ? (clampedCents / 50) * 90 : 0
-
-  const needleEnd = polarToCartesian(needleAngle, NEEDLE_LENGTH)
+  const activeIndex = hasSignal ? getActiveTickIndex(cents) : null
+  const accuracyClass = hasSignal ? getAccuracyClass(cents) : ''
 
   return (
     <div className={styles.card}>
-      <svg className={styles.svg} viewBox="0 0 300 170">
-        <path
-          d={describeArc(-90, -60)}
-          stroke="var(--color-danger)"
-          strokeWidth="10"
-          fill="none"
-        />
-        <path
-          d={describeArc(-60, -15)}
-          stroke="var(--color-warning)"
-          strokeWidth="10"
-          fill="none"
-        />
-        <path
-          d={describeArc(-15, 15)}
-          stroke="var(--color-success)"
-          strokeWidth="10"
-          fill="none"
-        />
-        <path
-          d={describeArc(15, 60)}
-          stroke="var(--color-warning)"
-          strokeWidth="10"
-          fill="none"
-        />
-        <path
-          d={describeArc(60, 90)}
-          stroke="var(--color-danger)"
-          strokeWidth="10"
-          fill="none"
-        />
+      <div className={styles.labelsRow}>
+        <span>-50</span>
+        <span>0</span>
+        <span>+50</span>
+      </div>
 
-        <line
-          className={styles.needle}
-          x1={CENTER_X}
-          y1={CENTER_Y}
-          x2={needleEnd.x}
-          y2={needleEnd.y}
-          stroke="var(--color-accent)"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <circle cx={CENTER_X} cy={CENTER_Y} r="5" fill="var(--color-accent)" />
-      </svg>
+      <div className={styles.tickStrip}>
+        {Array.from({ length: TICK_COUNT }, (_, index) => {
+          const isCenter = index === CENTER_INDEX
+          const isActive = index === activeIndex
+
+          return (
+            <div
+              key={index}
+              className={`${styles.tick} ${
+                isCenter ? styles.tickCenter : ''
+              } ${isActive ? `${styles.tickActive} ${accuracyClass}` : ''}`}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

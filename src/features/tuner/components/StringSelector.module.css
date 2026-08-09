@@ -41,13 +41,24 @@
   gap: 8px;
 }
 
+.stringColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
 .stringButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
   background: var(--color-panel-alt);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 4px;
+  border: 2px solid transparent;
   cursor: pointer;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease-out, border-color 0.15s ease-out;
 }
 
 .stringButton:disabled {
@@ -55,23 +66,29 @@
   cursor: default;
 }
 
+.stringButtonActive {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
 .stringLabel {
-  display: block;
   font-size: 13px;
   font-weight: 600;
   color: var(--color-text);
 }
 
+.stringButtonActive .stringLabel {
+  color: white;
+}
+
 .stringFrequency {
-  display: block;
   font-size: 9px;
   color: var(--color-text-muted);
-  margin-top: 2px;
 }
 
 @media (max-width: 380px) {
   .stringGrid {
     grid-template-columns: repeat(3, 1fr);
-    row-gap: 8px;
+    row-gap: 12px;
   }
 }
