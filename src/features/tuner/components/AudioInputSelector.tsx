@@ -16,7 +16,7 @@ function AudioInputSelector({
   const hasDevices = devices.length > 0
 
   return (
-    <label className={styles.label}>
+    <label className={styles.selectLabel}>
       {strings.tuner.audioInputLabel}
       <select
         className={styles.select}

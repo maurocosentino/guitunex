@@ -22,9 +22,9 @@ function MetronomePage() {
 
   return (
     <>
-      <div className={styles.display}>
-        <p className={styles.bpm}>{bpm}</p>
-        <p className={styles.label}>{strings.metronome.bpmLabel}</p>
+      <div className={styles.card}>
+        <p className={styles.bpmValue}>{bpm}</p>
+        <p className={styles.bpmCaption}>{strings.metronome.bpmLabel}</p>
         <BeatIndicator
           beatsPerMeasure={beatsPerMeasure}
           currentBeat={currentTick?.beatIndex ?? null}
@@ -43,7 +43,7 @@ function MetronomePage() {
       {isPlaying ? (
         <button
           type="button"
-          className={`${styles.button} ${styles.pauseButton}`}
+          className={`${styles.actionButton} ${styles.pauseButton}`}
           onClick={pause}
         >
           {strings.metronome.pause}
@@ -51,7 +51,7 @@ function MetronomePage() {
       ) : (
         <button
           type="button"
-          className={`${styles.button} ${styles.play}`}
+          className={`${styles.actionButton} ${styles.playButton}`}
           onClick={play}
         >
           {strings.metronome.play}

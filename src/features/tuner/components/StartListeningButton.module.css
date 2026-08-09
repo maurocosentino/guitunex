@@ -10,12 +10,12 @@
   background: transparent;
 }
 
-.start {
+.startButton {
   border: 2px solid var(--color-accent);
   color: var(--color-accent);
 }
 
-.stop {
+.stopButton {
   border: 2px solid var(--color-danger);
   color: var(--color-danger);
 }

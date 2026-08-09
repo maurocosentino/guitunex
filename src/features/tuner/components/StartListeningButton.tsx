@@ -16,7 +16,7 @@ function StartListeningButton({
     return (
       <button
         type="button"
-        className={`${styles.button} ${styles.stop}`}
+        className={`${styles.button} ${styles.stopButton}`}
         onClick={onStop}
       >
         {strings.tuner.stopListening}
@@ -27,7 +27,7 @@ function StartListeningButton({
   return (
     <button
       type="button"
-      className={`${styles.button} ${styles.start}`}
+      className={`${styles.button} ${styles.startButton}`}
       onClick={onStart}
     >
       {strings.tuner.startListening}

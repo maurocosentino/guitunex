@@ -34,7 +34,7 @@ function TuningGauge({ cents, hasSignal }: TuningGaugeProps) {
   const needleEnd = polarToCartesian(needleAngle, NEEDLE_LENGTH)
 
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.card}>
       <svg className={styles.svg} viewBox="0 0 300 170">
         <path
           d={describeArc(-90, -60)}

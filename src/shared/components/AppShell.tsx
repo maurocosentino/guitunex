@@ -8,7 +8,7 @@ type AppShellProps = {
 function AppShell({ children }: AppShellProps) {
   return (
     <div className={styles.page}>
-      <div className={styles.console}>{children}</div>
+      <div className={styles.contentColumn}>{children}</div>
     </div>
   )
 }

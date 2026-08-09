@@ -15,10 +15,10 @@ function BpmControl({ bpm, onChange }: BpmControlProps) {
   }
 
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.label}>{strings.metronome.tempoLabel}</p>
+    <div className={styles.group}>
+      <p className={styles.groupLabel}>{strings.metronome.tempoLabel}</p>
 
-      <div className={styles.row}>
+      <div className={styles.stepperRow}>
         <button
           type="button"
           className={styles.stepButton}
@@ -26,7 +26,7 @@ function BpmControl({ bpm, onChange }: BpmControlProps) {
         >
           −
         </button>
-        <span className={styles.value}>{bpm}</span>
+        <span className={styles.bpmValue}>{bpm}</span>
         <button
           type="button"
           className={styles.stepButton}

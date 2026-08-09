@@ -1,4 +1,4 @@
-.display {
+.card {
   background: var(--color-panel-alt);
   border-radius: var(--radius);
   height: 160px;
@@ -9,19 +9,19 @@
   gap: 8px;
 }
 
-.note {
+.noteText {
   font-size: 40px;
   font-weight: 600;
   color: var(--color-text);
 }
 
-.cents {
+.centsText {
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text-muted);
 }
 
-.placeholder {
+.emptyIndicator {
   width: 32px;
   height: 3px;
   background: var(--color-text);

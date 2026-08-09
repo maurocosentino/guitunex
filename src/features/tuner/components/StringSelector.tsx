@@ -7,16 +7,20 @@ import styles from './StringSelector.module.css'
 type StringSelectorProps = {
   instrument: Instrument
   tuningId: string
-  strings: TuningString[]
+  tuningStrings: TuningString[]
 }
 
-function StringSelector({ instrument, tuningId, strings: tuningStrings }: StringSelectorProps) {
+function StringSelector({
+  instrument,
+  tuningId,
+  tuningStrings,
+}: StringSelectorProps) {
   const { playUrl, isRepeatEnabled, toggleRepeat } = useStringReferencePlayer()
 
   return (
-    <div className={styles.wrapper}>
-      <div className={styles.header}>
-        <p className={styles.label}>{strings.tuner.stringsLabel}</p>
+    <div className={styles.card}>
+      <div className={styles.sectionHeader}>
+        <p className={styles.sectionLabel}>{strings.tuner.stringsLabel}</p>
         <button
           type="button"
           className={`${styles.repeatToggle} ${
@@ -28,7 +32,7 @@ function StringSelector({ instrument, tuningId, strings: tuningStrings }: String
         </button>
       </div>
 
-      <div className={styles.grid}>
+      <div className={styles.stringGrid}>
         {tuningStrings.map((string) => {
           const audioUrl = getStringAudioUrl(
             instrument,
@@ -40,7 +44,7 @@ function StringSelector({ instrument, tuningId, strings: tuningStrings }: String
             <button
               key={string.label}
               type="button"
-              className={styles.string}
+              className={styles.stringButton}
               disabled={audioUrl === null}
               onClick={() => audioUrl !== null && playUrl(audioUrl)}
             >

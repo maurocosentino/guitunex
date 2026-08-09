@@ -7,7 +7,7 @@ type BeatIndicatorProps = {
 
 function BeatIndicator({ beatsPerMeasure, currentBeat }: BeatIndicatorProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.dotsRow}>
       {Array.from({ length: beatsPerMeasure }, (_, index) => (
         <div
           key={index}

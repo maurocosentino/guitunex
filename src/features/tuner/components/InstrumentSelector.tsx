@@ -18,7 +18,7 @@ function InstrumentSelector({
   onTuningChange,
 }: InstrumentSelectorProps) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.group}>
       <select
         className={styles.select}
         value={instrument}

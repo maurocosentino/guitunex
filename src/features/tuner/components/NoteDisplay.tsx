@@ -8,20 +8,20 @@ type NoteDisplayProps = {
 
 function NoteDisplay({ note, octave, cents }: NoteDisplayProps) {
   return (
-    <div className={styles.display}>
+    <div className={styles.card}>
       {note !== null ? (
         <>
-          <span className={styles.note}>
+          <span className={styles.noteText}>
             {note}
             {octave}
           </span>
-          <span className={styles.cents}>
+          <span className={styles.centsText}>
             {cents !== null && cents > 0 ? '+' : ''}
             {cents} cents
           </span>
         </>
       ) : (
-        <div className={styles.placeholder} />
+        <div className={styles.emptyIndicator} />
       )}
     </div>
   )

@@ -76,7 +76,7 @@ function TunerPage() {
           <StringSelector
             instrument={instrument}
             tuningId={selectedTuning.id}
-            strings={selectedTuning.strings}
+            tuningStrings={selectedTuning.strings}
           />
 
           {state.status === 'pending' && (

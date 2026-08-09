@@ -3,7 +3,7 @@ import styles from './UnsupportedBrowserMessage.module.css'
 
 function UnsupportedBrowserMessage() {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles.card}>
       <p className={styles.title}>{strings.tuner.unsupportedTitle}</p>
       <p className={styles.text}>{strings.tuner.unsupportedText}</p>
     </div>

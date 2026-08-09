@@ -18,15 +18,15 @@ function SubdivisionSelector({
   onChange,
 }: SubdivisionSelectorProps) {
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.label}>{strings.metronome.subdivisionLabel}</p>
-      <div className={styles.grid}>
+    <div className={styles.group}>
+      <p className={styles.groupLabel}>{strings.metronome.subdivisionLabel}</p>
+      <div className={styles.optionGrid}>
         {SUBDIVISIONS.map((option) => (
           <button
             key={option.value}
             type="button"
-            className={`${styles.option} ${
-              subdivision === option.value ? styles.optionActive : ''
+            className={`${styles.optionButton} ${
+              subdivision === option.value ? styles.optionButtonActive : ''
             }`}
             onClick={() => onChange(option.value)}
           >

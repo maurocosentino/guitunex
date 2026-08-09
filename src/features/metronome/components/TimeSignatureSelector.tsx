@@ -13,15 +13,15 @@ function TimeSignatureSelector({
   onChange,
 }: TimeSignatureSelectorProps) {
   return (
-    <div className={styles.wrapper}>
-      <p className={styles.label}>{strings.metronome.timeSignatureLabel}</p>
-      <div className={styles.grid}>
+    <div className={styles.group}>
+      <p className={styles.groupLabel}>{strings.metronome.timeSignatureLabel}</p>
+      <div className={styles.optionGrid}>
         {TIME_SIGNATURES.map((beats) => (
           <button
             key={beats}
             type="button"
-            className={`${styles.option} ${
-              beatsPerMeasure === beats ? styles.optionActive : ''
+            className={`${styles.optionButton} ${
+              beatsPerMeasure === beats ? styles.optionButtonActive : ''
             }`}
             onClick={() => onChange(beats)}
           >
