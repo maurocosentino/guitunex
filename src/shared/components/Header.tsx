@@ -1,4 +1,5 @@
 import type { AppModule } from '../types/module'
+import { strings } from '../i18n/strings'
 import styles from './Header.module.css'
 
 type HeaderProps = {
@@ -11,7 +12,9 @@ function Header({ activeModule, onModuleChange }: HeaderProps) {
     <header className={styles.header}>
       <div className={styles.brand}>
         <div className={styles.logo}>🎵</div>
-        <span className={styles.title}>GUITUNEX</span>
+        <span className={styles.title} translate="no">
+          {strings.header.appName}
+        </span>
       </div>
 
       <div className={styles.toggle}>
@@ -22,7 +25,7 @@ function Header({ activeModule, onModuleChange }: HeaderProps) {
           }`}
           onClick={() => onModuleChange('tuner')}
         >
-          TUNER
+          {strings.header.tunerTab}
         </button>
         <button
           type="button"
@@ -31,7 +34,7 @@ function Header({ activeModule, onModuleChange }: HeaderProps) {
           }`}
           onClick={() => onModuleChange('metronome')}
         >
-          METRONOME
+          {strings.header.metronomeTab}
         </button>
       </div>
     </header>

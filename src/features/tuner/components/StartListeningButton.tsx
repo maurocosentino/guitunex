@@ -1,3 +1,4 @@
+import { strings } from '../../../shared/i18n/strings'
 import styles from './StartListeningButton.module.css'
 
 type StartListeningButtonProps = {
@@ -18,7 +19,7 @@ function StartListeningButton({
         className={`${styles.button} ${styles.stop}`}
         onClick={onStop}
       >
-        STOP
+        {strings.tuner.stopListening}
       </button>
     )
   }
@@ -29,7 +30,7 @@ function StartListeningButton({
       className={`${styles.button} ${styles.start}`}
       onClick={onStart}
     >
-      START LISTENING
+      {strings.tuner.startListening}
     </button>
   )
 }

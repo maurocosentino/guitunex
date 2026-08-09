@@ -1,10 +1,11 @@
+import { strings } from '../../../shared/i18n/strings'
 import styles from './SubdivisionSelector.module.css'
 
 const SUBDIVISIONS = [
-  { value: 1, label: 'Negras' },
-  { value: 2, label: 'Corcheas' },
-  { value: 3, label: 'Tresillos' },
-  { value: 4, label: 'Semicorcheas' },
+  { value: 1, label: strings.metronome.subdivisionQuarter },
+  { value: 2, label: strings.metronome.subdivisionEighth },
+  { value: 3, label: strings.metronome.subdivisionTriplet },
+  { value: 4, label: strings.metronome.subdivisionSixteenth },
 ]
 
 type SubdivisionSelectorProps = {
@@ -18,7 +19,7 @@ function SubdivisionSelector({
 }: SubdivisionSelectorProps) {
   return (
     <div className={styles.wrapper}>
-      <p className={styles.label}>SUBDIVISIÓN</p>
+      <p className={styles.label}>{strings.metronome.subdivisionLabel}</p>
       <div className={styles.grid}>
         {SUBDIVISIONS.map((option) => (
           <button

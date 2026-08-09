@@ -1,3 +1,4 @@
+import { strings } from '../../../shared/i18n/strings'
 import styles from './BpmControl.module.css'
 
 const MIN_BPM = 40
@@ -15,7 +16,7 @@ function BpmControl({ bpm, onChange }: BpmControlProps) {
 
   return (
     <div className={styles.wrapper}>
-      <p className={styles.label}>TEMPO (BPM)</p>
+      <p className={styles.label}>{strings.metronome.tempoLabel}</p>
 
       <div className={styles.row}>
         <button

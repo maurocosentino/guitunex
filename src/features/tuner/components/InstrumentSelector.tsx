@@ -1,4 +1,5 @@
 import type { Instrument, Tuning } from '../services/tunings'
+import { strings } from '../../../shared/i18n/strings'
 import styles from './InstrumentSelector.module.css'
 
 type InstrumentSelectorProps = {
@@ -25,8 +26,8 @@ function InstrumentSelector({
           onInstrumentChange(event.target.value as Instrument)
         }
       >
-        <option value="guitar">Guitar</option>
-        <option value="bass">Bass</option>
+        <option value="guitar">{strings.tuner.instrumentGuitar}</option>
+        <option value="bass">{strings.tuner.instrumentBass}</option>
       </select>
 
       <select

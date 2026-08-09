@@ -1,0 +1,36 @@
+export const strings = {
+  header: {
+    appName: 'Guitunex',
+    tunerTab: 'AFINADOR',
+    metronomeTab: 'METRÓNOMO',
+  },
+  tuner: {
+    instrumentGuitar: 'Guitarra',
+    instrumentBass: 'Bajo',
+    stringsLabel: 'CUERDAS',
+    repeatToggle: 'REPETIR',
+    startListening: 'EMPEZAR A AFINAR',
+    stopListening: 'DETENER',
+    audioInputLabel: 'Entrada de audio',
+    audioInputNoDevices: 'Sin dispositivos disponibles',
+    audioInputUnnamedDevice: 'Micrófono sin nombre',
+    audioLevelAriaLabel: 'Nivel de audio de entrada',
+    micPending: 'Esperando permiso del micrófono...',
+    micDenied: 'No pudimos acceder al micrófono:',
+    unsupportedTitle: 'Tu navegador no es compatible',
+    unsupportedText:
+      'Guitunex necesita acceso al micrófono y a la Web Audio API. Probá con una versión reciente de Chrome, Firefox, Edge o Safari.',
+  },
+  metronome: {
+    bpmLabel: 'BPM',
+    tempoLabel: 'TEMPO (BPM)',
+    timeSignatureLabel: 'COMPÁS',
+    subdivisionLabel: 'SUBDIVISIÓN',
+    subdivisionQuarter: 'Negras',
+    subdivisionEighth: 'Corcheas',
+    subdivisionTriplet: 'Tresillos',
+    subdivisionSixteenth: 'Semicorcheas',
+    play: 'REPRODUCIR',
+    pause: 'PAUSAR',
+  },
+} as const

@@ -1,4 +1,5 @@
 import { useMetronome } from '../hooks/useMetronome'
+import { strings } from '../../../shared/i18n/strings'
 import BpmControl from './BpmControl'
 import TimeSignatureSelector from './TimeSignatureSelector'
 import SubdivisionSelector from './SubdivisionSelector'
@@ -23,7 +24,7 @@ function MetronomePage() {
     <>
       <div className={styles.display}>
         <p className={styles.bpm}>{bpm}</p>
-        <p className={styles.label}>BPM</p>
+        <p className={styles.label}>{strings.metronome.bpmLabel}</p>
         <BeatIndicator
           beatsPerMeasure={beatsPerMeasure}
           currentBeat={currentTick?.beatIndex ?? null}
@@ -45,7 +46,7 @@ function MetronomePage() {
           className={`${styles.button} ${styles.pauseButton}`}
           onClick={pause}
         >
-          PAUSE
+          {strings.metronome.pause}
         </button>
       ) : (
         <button
@@ -53,7 +54,7 @@ function MetronomePage() {
           className={`${styles.button} ${styles.play}`}
           onClick={play}
         >
-          PLAY
+          {strings.metronome.play}
         </button>
       )}
     </>

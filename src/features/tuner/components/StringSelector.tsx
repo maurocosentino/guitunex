@@ -1,6 +1,7 @@
 import type { Instrument, TuningString } from '../services/tunings'
 import { getStringAudioUrl } from '../services/stringReferenceAudio'
 import { useStringReferencePlayer } from '../hooks/useStringReferencePlayer'
+import { strings } from '../../../shared/i18n/strings'
 import styles from './StringSelector.module.css'
 
 type StringSelectorProps = {
@@ -9,13 +10,13 @@ type StringSelectorProps = {
   strings: TuningString[]
 }
 
-function StringSelector({ instrument, tuningId, strings }: StringSelectorProps) {
+function StringSelector({ instrument, tuningId, strings: tuningStrings }: StringSelectorProps) {
   const { playUrl, isRepeatEnabled, toggleRepeat } = useStringReferencePlayer()
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.header}>
-        <p className={styles.label}>STRINGS</p>
+        <p className={styles.label}>{strings.tuner.stringsLabel}</p>
         <button
           type="button"
           className={`${styles.repeatToggle} ${
@@ -23,12 +24,12 @@ function StringSelector({ instrument, tuningId, strings }: StringSelectorProps) 
           }`}
           onClick={toggleRepeat}
         >
-          REPEAT
+          {strings.tuner.repeatToggle}
         </button>
       </div>
 
       <div className={styles.grid}>
-        {strings.map((string) => {
+        {tuningStrings.map((string) => {
           const audioUrl = getStringAudioUrl(
             instrument,
             tuningId,

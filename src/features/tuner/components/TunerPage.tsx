@@ -11,6 +11,7 @@ import {
   getDefaultTuning,
   type Instrument,
 } from '../services/tunings'
+import { strings } from '../../../shared/i18n/strings'
 import InstrumentSelector from './InstrumentSelector'
 import NoteDisplay from './NoteDisplay'
 import TuningGauge from './TuningGauge'
@@ -79,11 +80,11 @@ function TunerPage() {
           />
 
           {state.status === 'pending' && (
-            <p className={styles.status}>Esperando permiso del micrófono...</p>
+            <p className={styles.status}>{strings.tuner.micPending}</p>
           )}
           {state.status === 'denied' && (
             <p className={styles.status}>
-              No pudimos acceder al micrófono: {state.error.message}
+              {strings.tuner.micDenied} {state.error.message}
             </p>
           )}
 

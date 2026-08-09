@@ -1,13 +1,11 @@
+import { strings } from '../../../shared/i18n/strings'
 import styles from './UnsupportedBrowserMessage.module.css'
 
 function UnsupportedBrowserMessage() {
   return (
     <div className={styles.wrapper}>
-      <p className={styles.title}>Tu navegador no es compatible</p>
-      <p className={styles.text}>
-        TuneLab necesita acceso al micrófono y a la Web Audio API. Probá con
-        una versión reciente de Chrome, Firefox, Edge o Safari.
-      </p>
+      <p className={styles.title}>{strings.tuner.unsupportedTitle}</p>
+      <p className={styles.text}>{strings.tuner.unsupportedText}</p>
     </div>
   )
 }

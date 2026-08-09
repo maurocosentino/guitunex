@@ -1,3 +1,4 @@
+import { strings } from '../../../shared/i18n/strings'
 import styles from './TimeSignatureSelector.module.css'
 
 const TIME_SIGNATURES = [2, 3, 4, 5, 6, 7]
@@ -13,7 +14,7 @@ function TimeSignatureSelector({
 }: TimeSignatureSelectorProps) {
   return (
     <div className={styles.wrapper}>
-      <p className={styles.label}>COMPÁS</p>
+      <p className={styles.label}>{strings.metronome.timeSignatureLabel}</p>
       <div className={styles.grid}>
         {TIME_SIGNATURES.map((beats) => (
           <button

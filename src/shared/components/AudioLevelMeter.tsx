@@ -1,3 +1,4 @@
+import { strings } from '../i18n/strings'
 import styles from './AudioLevelMeter.module.css'
 
 type AudioLevelMeterProps = {
@@ -11,7 +12,7 @@ function AudioLevelMeter({ level }: AudioLevelMeterProps) {
   return (
     <div
       role="meter"
-      aria-label="Nivel de audio de entrada"
+      aria-label={strings.tuner.audioLevelAriaLabel}
       aria-valuenow={Math.round(widthPercentage)}
       aria-valuemin={0}
       aria-valuemax={100}
