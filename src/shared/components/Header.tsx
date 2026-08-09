@@ -11,7 +11,7 @@ function Header({ activeModule, onModuleChange }: HeaderProps) {
     <header className={styles.header}>
       <div className={styles.brand}>
         <div className={styles.logo}>🎵</div>
-        <span className={styles.title}>TUNELAB</span>
+        <span className={styles.title}>GUITUNEX</span>
       </div>
 
       <div className={styles.toggle}>
