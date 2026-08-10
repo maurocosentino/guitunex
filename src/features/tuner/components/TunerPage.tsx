@@ -54,14 +54,6 @@ function TunerPage() {
     <>
       {isAudioSupported() ? (
         <>
-          <InstrumentSelector
-            instrument={instrument}
-            tunings={tunings}
-            selectedTuningId={selectedTuning.id}
-            onInstrumentChange={handleInstrumentChange}
-            onTuningChange={setSelectedTuningId}
-          />
-
           <NoteDisplay
             note={noteInfo?.note ?? null}
             octave={noteInfo?.octave ?? null}
@@ -71,6 +63,14 @@ function TunerPage() {
           <TuningGauge
             cents={noteInfo?.cents ?? 0}
             hasSignal={noteInfo !== null}
+          />
+
+          <InstrumentSelector
+            instrument={instrument}
+            tunings={tunings}
+            selectedTuningId={selectedTuning.id}
+            onInstrumentChange={handleInstrumentChange}
+            onTuningChange={setSelectedTuningId}
           />
 
           <StringSelector
