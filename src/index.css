@@ -24,3 +24,10 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
 }
+
+@font-face {
+  font-family: 'Bitcrusher';
+  src: url('/fonts/bitcrusher-condensed-bd.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
