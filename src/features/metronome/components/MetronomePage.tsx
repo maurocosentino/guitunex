@@ -1,10 +1,12 @@
 import { useMetronome } from '../hooks/useMetronome'
 import { strings } from '../../../shared/i18n/strings'
-import BpmControl from './BpmControl'
 import TimeSignatureSelector from './TimeSignatureSelector'
 import SubdivisionSelector from './SubdivisionSelector'
 import BeatIndicator from './BeatIndicator'
 import styles from './MetronomePage.module.css'
+
+const MIN_BPM = 40
+const MAX_BPM = 240
 
 function MetronomePage() {
   const {
@@ -20,18 +22,46 @@ function MetronomePage() {
     pause,
   } = useMetronome()
 
+  function clampBpm(value: number): number {
+    return Math.min(MAX_BPM, Math.max(MIN_BPM, value))
+  }
+
   return (
     <>
       <div className={styles.card}>
-        <p className={styles.bpmValue}>{bpm}</p>
+        <div className={styles.bpmRow}>
+          <button
+            type="button"
+            className={styles.stepButton}
+            onClick={() => setBpm(clampBpm(bpm - 1))}
+          >
+            −
+          </button>
+          <p className={styles.bpmValue}>{bpm}</p>
+          <button
+            type="button"
+            className={styles.stepButton}
+            onClick={() => setBpm(clampBpm(bpm + 1))}
+          >
+            +
+          </button>
+        </div>
         <p className={styles.bpmCaption}>{strings.metronome.bpmLabel}</p>
+
+        <input
+          className={styles.slider}
+          type="range"
+          min={MIN_BPM}
+          max={MAX_BPM}
+          value={bpm}
+          onChange={(event) => setBpm(Number(event.target.value))}
+        />
+
         <BeatIndicator
           beatsPerMeasure={beatsPerMeasure}
           currentBeat={currentTick?.beatIndex ?? null}
         />
       </div>
-
-      <BpmControl bpm={bpm} onChange={setBpm} />
 
       <TimeSignatureSelector
         beatsPerMeasure={beatsPerMeasure}

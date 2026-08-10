@@ -12,22 +12,23 @@
 
 .optionGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
 }
 
 .optionButton {
   background: var(--color-panel-alt);
   border: none;
   border-radius: 8px;
-  padding: 12px 4px;
-  font-size: 14px;
+  padding: 12px 2px;
+  font-size: clamp(11px, 3vw, 14px);
   font-weight: 600;
   color: var(--color-text);
   cursor: pointer;
+  min-width: 0;
 }
 
 .optionButtonActive {
-  background: var(--color-success);
+  background: var(--color-accent);
   color: white;
 }
