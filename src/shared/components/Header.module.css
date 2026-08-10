@@ -32,36 +32,8 @@
   color: var(--color-text);
 }
 
-.toggle {
-  display: flex;
-  background: var(--color-panel-alt);
-  border-radius: 999px;
-  padding: 2px;
-}
-
-.toggleOption {
-  border: none;
-  background: none;
-  color: var(--color-text-muted);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-}
-
-.toggleOptionActive {
-  background: var(--color-accent);
-  color: white;
-}
-
 @media (max-width: 380px) {
   .header {
     flex-wrap: wrap;
-  }
-
-  .toggleOption {
-    padding: 6px 10px;
-    font-size: 11px;
   }
 }
