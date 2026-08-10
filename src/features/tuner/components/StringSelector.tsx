@@ -2,6 +2,7 @@ import type { Instrument, TuningString } from '../services/tunings'
 import { getStringAudioUrl } from '../services/stringReferenceAudio'
 import { useStringReferencePlayer } from '../hooks/useStringReferencePlayer'
 import { strings } from '../../../shared/i18n/strings'
+import RepeatToggle from './RepeatToggle'
 import styles from './StringSelector.module.css'
 
 type StringSelectorProps = {
@@ -22,15 +23,7 @@ function StringSelector({
     <div className={styles.card}>
       <div className={styles.sectionHeader}>
         <p className={styles.sectionLabel}>{strings.tuner.stringsLabel}</p>
-        <button
-          type="button"
-          className={`${styles.repeatToggle} ${
-            isRepeatEnabled ? styles.repeatToggleActive : ''
-          }`}
-          onClick={toggleRepeat}
-        >
-          {strings.tuner.repeatToggle}
-        </button>
+        <RepeatToggle checked={isRepeatEnabled} onChange={toggleRepeat} />
       </div>
 
       <div className={styles.stringGrid}>
