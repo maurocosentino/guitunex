@@ -1,6 +1,6 @@
 export const strings = {
   header: {
-    appName: 'Guitunex',
+    appName: 'GuiTunex',
     tunerTab: 'AFINADOR',
     metronomeTab: 'METRÓNOMO',
   },

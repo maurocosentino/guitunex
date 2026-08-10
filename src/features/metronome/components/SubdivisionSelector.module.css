@@ -12,7 +12,7 @@
 
 .optionGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 8px;
 }
 
@@ -20,9 +20,10 @@
   background: var(--color-panel-alt);
   border: none;
   border-radius: 8px;
-  padding: 12px 4px;
-  font-size: 13px;
-  font-weight: 600;
+  padding: 14px 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: var(--color-text);
   cursor: pointer;
 }
@@ -30,4 +31,9 @@
 .optionButtonActive {
   background: var(--color-accent);
   color: white;
+}
+
+.optionIcon {
+  width: 32px;
+  height: 32px;
 }
