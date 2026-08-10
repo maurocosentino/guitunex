@@ -38,19 +38,21 @@
 .stringGrid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 8px;
+  gap: 6px;
 }
 
 .stringColumn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
+  min-width: 0;
 }
 
 .stringButton {
-  width: 48px;
-  height: 48px;
+  width: 100%;
+  max-width: 48px;
+  aspect-ratio: 1;
   border-radius: 50%;
   background: var(--color-panel-alt);
   border: 2px solid transparent;
@@ -72,7 +74,7 @@
 }
 
 .stringLabel {
-  font-size: 13px;
+  font-size: clamp(10px, 3vw, 13px);
   font-weight: 600;
   color: var(--color-text);
 }
@@ -82,13 +84,7 @@
 }
 
 .stringFrequency {
-  font-size: 9px;
+  font-size: 8px;
   color: var(--color-text-muted);
-}
-
-@media (max-width: 380px) {
-  .stringGrid {
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 12px;
-  }
+  white-space: nowrap;
 }

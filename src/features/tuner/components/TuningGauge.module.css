@@ -1,6 +1,4 @@
 .card {
-  background: var(--color-panel-alt);
-  border-radius: var(--radius);
   padding: 20px 16px;
 }
 
