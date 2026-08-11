@@ -1,75 +1,54 @@
-# React + TypeScript + Vite
+# Guitunex
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Suite de herramientas web para músicos, construida como proyecto de portfolio y aprendizaje. Funciona completamente en el navegador, sin backend.
 
-Currently, two official plugins are available:
+## Herramientas
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Afinador cromático
 
-## React Compiler
+- Detección de pitch en tiempo real usando el algoritmo YIN.
+- Feedback visual con tira de ticks tipo "strobe tuner" y desviación en cents.
+- Selector de instrumento (Guitarra / Bajo) y afinación (Standard, Drop D, Eb Standard).
+- Audio real de referencia por cuerda, con repetición automática opcional.
+- Selección de dispositivo de entrada de audio (útil con interfaces externas).
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Metrónomo
 
-## Expanding the ESLint configuration
+- Scheduling preciso basado en Web Audio API (no `setInterval`).
+- Compás configurable (2/4 a 7/4) y subdivisión (negras, corcheas, tresillos, semicorcheas).
+- Acento en el primer beat de cada compás.
+- Indicador visual de beat sincronizado con el audio.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React + TypeScript + Vite
+- Web Audio API
+- CSS Modules
+- Vitest para testing
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Desarrollo
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Tests
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run test -- --run
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Arquitectura
+
+El proyecto sigue una estructura Feature-First:
 
 ```
+src/
+  features/
+    tuner/
+    metronome/
+  shared/
+```
+
+Cada feature contiene sus propios `components/`, `hooks/` y `services/`. El código genuinamente reutilizable entre features vive en `shared/`.
