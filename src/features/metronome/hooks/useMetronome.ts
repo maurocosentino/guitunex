@@ -35,6 +35,9 @@ export function useMetronome(initialBpm = 120) {
         const delayMs = Math.max(0, (time - audioContext.currentTime) * 1000)
         const timeoutId = setTimeout(() => {
           setCurrentTick(tickInfo)
+          timeoutIdsRef.current = timeoutIdsRef.current.filter(
+            (id) => id !== timeoutId,
+          )
         }, delayMs)
 
         timeoutIdsRef.current.push(timeoutId)
