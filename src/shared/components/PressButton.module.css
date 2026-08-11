@@ -1,0 +1,44 @@
+.button {
+  --border-radius: 12px;
+  --outline-color: var(--color-accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-radius: var(--border-radius);
+  background: var(--outline-color);
+  padding: 0;
+  width: 100%;
+  height: 52px;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: none;
+}
+
+.button.danger {
+  --outline-color: var(--color-danger);
+}
+
+.buttonInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-sizing: border-box;
+  border: 2px solid var(--outline-color);
+  border-radius: var(--border-radius);
+  width: 100%;
+  height: 100%;
+  background: var(--color-panel);
+  color: var(--outline-color);
+  transform: translateY(-0.2em);
+  transition: transform 0.1s ease;
+}
+
+.button:active .buttonInner {
+  transform: translateY(0);
+}

@@ -93,12 +93,14 @@ function TunerPage() {
             onSelect={(deviceId) => requestAccess(deviceId)}
           />
 
-          <StartListeningButton
-            isListening={state.status === 'granted'}
-            audioLevel={audioLevel}
-            onStart={handleStart}
-            onStop={stopAccess}
-          />
+          <div className={styles.buttonWrapper}>
+            <StartListeningButton
+              isListening={state.status === 'granted'}
+              audioLevel={audioLevel}
+              onStart={handleStart}
+              onStop={stopAccess}
+            />
+          </div>
         </>
       ) : (
         <UnsupportedBrowserMessage />

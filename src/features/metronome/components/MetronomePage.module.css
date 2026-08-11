@@ -73,24 +73,6 @@
   cursor: pointer;
 }
 
-.actionButton {
-  width: 100%;
-  border-radius: var(--radius);
-  padding: 16px;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
-  background: transparent;
+.playButtonWrapper {
   margin-top: 20px;
-}
-
-.playButton {
-  border: 2px solid var(--color-accent);
-  color: var(--color-accent);
-}
-
-.pauseButton {
-  border: 2px solid var(--color-danger);
-  color: var(--color-danger);
 }

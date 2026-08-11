@@ -1,5 +1,6 @@
 import { strings } from '../../../shared/i18n/strings'
 import AudioLevelMeter from '../../../shared/components/AudioLevelMeter'
+import PressButton from '../../../shared/components/PressButton'
 import styles from './StartListeningButton.module.css'
 
 type StartListeningButtonProps = {
@@ -17,30 +18,26 @@ function StartListeningButton({
 }: StartListeningButtonProps) {
   if (isListening) {
     return (
-      <button
-        type="button"
-        className={`${styles.button} ${styles.stopButton}`}
-        onClick={onStop}
-      >
-        <span className={styles.text}>{strings.tuner.stopListening}</span>
-        <span className={styles.meter}>
-          <AudioLevelMeter level={audioLevel} />
-        </span>
-      </button>
+      <PressButton onClick={onStop} variant="danger">
+        <div className={styles.content}>
+          <span className={styles.text}>{strings.tuner.stopListening}</span>
+          <span className={styles.meter}>
+            <AudioLevelMeter level={audioLevel} />
+          </span>
+        </div>
+      </PressButton>
     )
   }
 
   return (
-    <button
-      type="button"
-      className={`${styles.button} ${styles.startButton}`}
-      onClick={onStart}
-    >
-      <span className={styles.text}>{strings.tuner.startListening}</span>
-      <span className={styles.meter}>
-        <AudioLevelMeter level={0} />
-      </span>
-    </button>
+    <PressButton onClick={onStart} variant="accent">
+      <div className={styles.content}>
+        <span className={styles.text}>{strings.tuner.startListening}</span>
+        <span className={styles.meter}>
+          <AudioLevelMeter level={0} />
+        </span>
+      </div>
+    </PressButton>
   )
 }
 

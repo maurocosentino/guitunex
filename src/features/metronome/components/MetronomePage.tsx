@@ -1,5 +1,6 @@
 import { useMetronome } from '../hooks/useMetronome'
 import { strings } from '../../../shared/i18n/strings'
+import PressButton from '../../../shared/components/PressButton'
 import TimeSignatureSelector from './TimeSignatureSelector'
 import SubdivisionSelector from './SubdivisionSelector'
 import BeatIndicator from './BeatIndicator'
@@ -76,23 +77,17 @@ function MetronomePage() {
 
       <SubdivisionSelector subdivision={subdivision} onChange={setSubdivision} />
 
-      {isPlaying ? (
-        <button
-          type="button"
-          className={`${styles.actionButton} ${styles.pauseButton}`}
-          onClick={pause}
-        >
-          {strings.metronome.pause}
-        </button>
-      ) : (
-        <button
-          type="button"
-          className={`${styles.actionButton} ${styles.playButton}`}
-          onClick={play}
-        >
-          {strings.metronome.play}
-        </button>
-      )}
+      <div className={styles.playButtonWrapper}>
+        {isPlaying ? (
+          <PressButton onClick={pause} variant="danger">
+            {strings.metronome.pause}
+          </PressButton>
+        ) : (
+          <PressButton onClick={play} variant="accent">
+            {strings.metronome.play}
+          </PressButton>
+        )}
+      </div>
     </>
   )
 }
