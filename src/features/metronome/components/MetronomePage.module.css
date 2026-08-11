@@ -1,29 +1,9 @@
 .card {
-  background: var(--color-panel-alt);
+  /* background: var(--color-panel-alt); */
   border-radius: var(--radius);
   padding: 24px;
   text-align: center;
   margin-bottom: 20px;
-}
-
-.bpmRow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-}
-
-.stepButton {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid var(--color-accent);
-  background: transparent;
-  color: var(--color-accent);
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-  flex-shrink: 0;
 }
 
 .bpmValue {
@@ -37,12 +17,60 @@
   font-size: 12px;
   color: var(--color-text-muted);
   letter-spacing: 1px;
-  margin: 4px 0 0;
+  margin: 4px 0 20px;
+}
+
+.sliderRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stepButton {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .slider {
-  width: 100%;
-  margin-top: 16px;
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: none;
+  cursor: pointer;
 }
 
 .actionButton {
@@ -54,6 +82,7 @@
   letter-spacing: 1px;
   cursor: pointer;
   background: transparent;
+  margin-top: 20px;
 }
 
 .playButton {

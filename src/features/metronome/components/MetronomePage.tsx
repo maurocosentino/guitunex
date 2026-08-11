@@ -5,8 +5,8 @@ import SubdivisionSelector from './SubdivisionSelector'
 import BeatIndicator from './BeatIndicator'
 import styles from './MetronomePage.module.css'
 
-const MIN_BPM = 40
-const MAX_BPM = 240
+const MIN_BPM = 30
+const MAX_BPM = 300
 
 function MetronomePage() {
   const {
@@ -26,10 +26,16 @@ function MetronomePage() {
     return Math.min(MAX_BPM, Math.max(MIN_BPM, value))
   }
 
+  const fillPercentage = ((bpm - MIN_BPM) / (MAX_BPM - MIN_BPM)) * 100
+  const sliderBackground = `linear-gradient(to right, var(--color-accent) ${fillPercentage}%, var(--color-border) ${fillPercentage}%)`
+
   return (
     <>
       <div className={styles.card}>
-        <div className={styles.bpmRow}>
+        <p className={styles.bpmValue}>{bpm}</p>
+        <p className={styles.bpmCaption}>{strings.metronome.bpmLabel}</p>
+
+        <div className={styles.sliderRow}>
           <button
             type="button"
             className={styles.stepButton}
@@ -37,7 +43,17 @@ function MetronomePage() {
           >
             −
           </button>
-          <p className={styles.bpmValue}>{bpm}</p>
+
+          <input
+            className={styles.slider}
+            style={{ background: sliderBackground }}
+            type="range"
+            min={MIN_BPM}
+            max={MAX_BPM}
+            value={bpm}
+            onChange={(event) => setBpm(Number(event.target.value))}
+          />
+
           <button
             type="button"
             className={styles.stepButton}
@@ -46,16 +62,6 @@ function MetronomePage() {
             +
           </button>
         </div>
-        <p className={styles.bpmCaption}>{strings.metronome.bpmLabel}</p>
-
-        <input
-          className={styles.slider}
-          type="range"
-          min={MIN_BPM}
-          max={MAX_BPM}
-          value={bpm}
-          onChange={(event) => setBpm(Number(event.target.value))}
-        />
 
         <BeatIndicator
           beatsPerMeasure={beatsPerMeasure}

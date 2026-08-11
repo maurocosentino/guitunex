@@ -1,13 +1,13 @@
 .dotsRow {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   margin-top: 16px;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background: var(--color-border);
 }
