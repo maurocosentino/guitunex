@@ -18,7 +18,6 @@ import TuningGauge from './TuningGauge'
 import StringSelector from './StringSelector'
 import StartListeningButton from './StartListeningButton'
 import AudioInputSelector from './AudioInputSelector'
-import AudioLevelMeter from '../../../shared/components/AudioLevelMeter'
 import UnsupportedBrowserMessage from './UnsupportedBrowserMessage'
 import styles from './TunerPage.module.css'
 
@@ -94,10 +93,9 @@ function TunerPage() {
             onSelect={(deviceId) => requestAccess(deviceId)}
           />
 
-          <AudioLevelMeter level={audioLevel} />
-
           <StartListeningButton
             isListening={state.status === 'granted'}
+            audioLevel={audioLevel}
             onStart={handleStart}
             onStop={stopAccess}
           />

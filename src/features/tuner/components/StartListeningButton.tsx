@@ -1,14 +1,17 @@
 import { strings } from '../../../shared/i18n/strings'
+import AudioLevelMeter from '../../../shared/components/AudioLevelMeter'
 import styles from './StartListeningButton.module.css'
 
 type StartListeningButtonProps = {
   isListening: boolean
+  audioLevel: number
   onStart: () => void
   onStop: () => void
 }
 
 function StartListeningButton({
   isListening,
+  audioLevel,
   onStart,
   onStop,
 }: StartListeningButtonProps) {
@@ -19,7 +22,10 @@ function StartListeningButton({
         className={`${styles.button} ${styles.stopButton}`}
         onClick={onStop}
       >
-        {strings.tuner.stopListening}
+        <span className={styles.text}>{strings.tuner.stopListening}</span>
+        <span className={styles.meter}>
+          <AudioLevelMeter level={audioLevel} />
+        </span>
       </button>
     )
   }
@@ -30,7 +36,10 @@ function StartListeningButton({
       className={`${styles.button} ${styles.startButton}`}
       onClick={onStart}
     >
-      {strings.tuner.startListening}
+      <span className={styles.text}>{strings.tuner.startListening}</span>
+      <span className={styles.meter}>
+        <AudioLevelMeter level={0} />
+      </span>
     </button>
   )
 }
